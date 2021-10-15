@@ -55,6 +55,18 @@ def run_influx_container(context):
 
 
 @task
+def run_graphana_container(context):
+    """
+    Run a simple Graphana container for development/testing
+    """
+    context.run(
+        "docker run -d -p 3000:3000 --rm --name grafana grafana/grafana",
+        pty=True,
+        replace_env=False,
+    )
+
+
+@task
 def doc(context):
     context.run("./env/bin/sphinx-apidoc -o doc/api -f pgflux")
     context.run(
